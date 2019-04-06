@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Verein()
+comment0.text=\nKonstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Verein\n\n
+comment1.params=mitglied
+comment1.target=void\ beitreten(Mitgliedschaft)
+comment1.text=\nF\u00FCge\ ein\ neues\ Mitglied\ in\ die\ Mitgliederliste\ ein.\n@param\ mitglied\ Infos\ \u00FCber\ das\ einzuf\u00FCgende\ Mitglied.\n\n
+comment2.target=int\ anzahlMitglieder()
+comment2.text=\n@return\ die\ Anzahl\ der\ Mitglieder\ (Mitgliedschaft-Objekte)\nin\ diesem\ Verein.\n\n
+numComments=3
