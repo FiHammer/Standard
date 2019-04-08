@@ -11,6 +11,7 @@ public class Raum<dataType> {
     public Raum(ArrayList<dataType> content1) {
         this.content = content1;
     }
+
     /**
      * adds a thing to the room
      * @param data the data for the room
