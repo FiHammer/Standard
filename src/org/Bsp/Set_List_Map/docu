@@ -1,0 +1,24 @@
+Set:
+collection, no dupplicate items
+base of all sets! => INTERFACE
+
+HashSet:
+
+uses a HashMap and ignores the data in it => uses only the keys
+
+
+List
+
+base of all sets! => INTERFACE
+
+ArrayList
+
+
+
+Map
+
+base of all sets! => INTERFACE
+
+HashMap
+
+
