@@ -4,50 +4,59 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Lotto {
-    private ArrayList<Integer> lottozahlen;
+    private int[] lottozahlen;
     private Random zufallsgenerator;
 
     private int maxLottozahlen;
     private int hoechsteLottozahl;
     public Lotto() {
-        lottozahlen = new ArrayList<>();
-        zufallsgenerator = new Random();
-
         this.maxLottozahlen = 6;
         this.hoechsteLottozahl = 49;
+
+        lottozahlen = new int[maxLottozahlen];
+        zufallsgenerator = new Random();
 
         wuerfle();
     }
 
     public Lotto(int maxLottozahlen, int hoechsteLottozahl) {
-        lottozahlen = new ArrayList<>();
-        zufallsgenerator = new Random();
-
         this.maxLottozahlen = maxLottozahlen;
         this.hoechsteLottozahl = hoechsteLottozahl;
+
+        lottozahlen = new int[maxLottozahlen];
+        zufallsgenerator = new Random();
 
         wuerfle();
     }
 
     public void wuerfle() {
-        lottozahlen.clear();
         for (int index=0; index<maxLottozahlen; index++) {
-            lottozahlen.add(getLottoZahl());
+            lottozahlen[index] = getLottoZahl();
         }
     }
 
     private int getLottoZahl() {
-
         int zahl = zufallsgenerator.nextInt(hoechsteLottozahl) + 1;
-        while (lottozahlen.contains(zahl)) {
+        while (existNum(zahl)) {
             zahl = zufallsgenerator.nextInt(hoechsteLottozahl) + 1;
         }
 
         return zahl;
     }
 
-    public Object[] getLottozahlenArray() {
-        return lottozahlen.toArray();
+    private boolean existNum(int num) {
+        boolean exist = false;
+        for (int zahl: lottozahlen) {
+            if (zahl == num) {
+                exist = true;
+                break;
+            }
+        }
+        return exist;
+    }
+
+    public int[] getLottozahlenArray() {
+        return lottozahlen;
     }
 
     public String getLottozahlenString() {
