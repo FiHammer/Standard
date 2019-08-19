@@ -1,7 +1,6 @@
 package org.Unterricht.Uebung.Einfuerung12BG;
 
 import java.util.Random;
-import java.util.ArrayList;
 
 public class Lotto {
     private int[] lottozahlen;
@@ -40,7 +39,6 @@ public class Lotto {
         while (existNum(zahl)) {
             zahl = zufallsgenerator.nextInt(hoechsteLottozahl) + 1;
         }
-
         return zahl;
     }
 
@@ -64,6 +62,6 @@ public class Lotto {
         for (Integer zahl: lottozahlen) {
             s.append(zahl).append(" ");
         }
-        return s.toString();
+        return s.toString().trim();
     }
 }

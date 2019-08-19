@@ -6,6 +6,7 @@ import org.Unterricht.Uebung.Einfuerung12BG.Lotto;
 import java.util.Random;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +24,7 @@ public class Main {
         l.wuerfle();
         System.out.println(l.getLottozahlenString());
         l.wuerfle();
+
 
         System.out.println("END!");
     }
