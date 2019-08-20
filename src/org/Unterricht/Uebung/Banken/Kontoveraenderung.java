@@ -57,7 +57,6 @@ class Kontoveraenderung {
 
         this.zielKonto = bank.getKonto(zielKontoNr);
 
-
         starteUeberweisung();
     }
 
@@ -80,7 +79,7 @@ class Kontoveraenderung {
     }
 
     // personalisierter Status für ein speziefisches Konto
-    public String getStatus(int startKontoNr) {
+    String getStatus(int startKontoNr) {
         String ueberweisungsTypStr = "";
         String geldTypStr = "";
         if (ueberweisungsTyp == 1) {
@@ -102,7 +101,7 @@ class Kontoveraenderung {
     }
 
     // algemeiner Status
-    public String getStatus() {
+    String getStatus() {
         String ueberweisungsTypStr = "";
         String geldTypStr = "";
         if (ueberweisungsTyp == 1) {

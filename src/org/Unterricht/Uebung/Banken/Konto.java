@@ -29,13 +29,15 @@ public class Konto {
 
 
     public void einzahlen(int betrag) {
+        if (betrag < 0) return;
         new Kontoveraenderung(kontonummer, betrag, bank, true);
     }
     public void auszahlen(int betrag) {
+        if (betrag < 0) return;
         new Kontoveraenderung(kontonummer, betrag, bank, false);
     }
     public void ueberweisen(int zielkontoNr, int betrag) {
-        if (zielkontoNr == kontonummer) return;
+        if (zielkontoNr == kontonummer || betrag < 0) return;
         new Kontoveraenderung(kontonummer, zielkontoNr, betrag, bank);
     }
 
@@ -55,18 +57,17 @@ public class Konto {
         System.out.println("Kontostand: \t\t" + geldbetrag + " Euro");
 
         System.out.print("Kontobewegungen:\t");
-        for (int index=0; index<kontoveraenderungen.size(); index++) {
-            if (index == kontoveraenderungen.size() - 1) { // keine neue line an der letzten Bewegung
-                System.out.println(kontoveraenderungen.get(index).getStatus(kontonummer));
-            } else {
-                System.out.print(kontoveraenderungen.get(index).getStatus(kontonummer) + "\n\t\t\t\t\t");
+        if (kontoveraenderungen.size() > 0) {
+            for (int index = 0; index < kontoveraenderungen.size(); index++) {
+                if (index == kontoveraenderungen.size() - 1) { // keine neue line an der letzten Bewegung
+                    System.out.println(kontoveraenderungen.get(index).getStatus(kontonummer));
+                } else {
+                    System.out.print(kontoveraenderungen.get(index).getStatus(kontonummer) + "\n\t\t\t\t\t");
+                }
             }
+        } else {
+            System.out.println("Keine");
         }
-        /*
-        for (Kontoveraenderung kv: kontoveraenderungen) {
-            System.out.print(kv.getStatus(kontonummer) + "\n\t\t\t\t\t");
-        }
-        */
     }
 
 }

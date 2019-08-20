@@ -7,7 +7,6 @@ public class Testklasse {
         simulieren();
     }
 
-
     public void simulieren() {
         Bank b = new Bank(100);
         Random r = new Random();
@@ -18,15 +17,14 @@ public class Testklasse {
 
         for (Konto k: b.getKonten()) {
             for (int i=0; i<2; i++) {
-                int typ = r.nextInt(3);
-                switch (typ) {
-                    case (0): {
+                switch (r.nextInt(3)) {
+                    case 0: {
                         k.einzahlen(r.nextInt(50));
                     }
-                    case (1): {
+                    case 1: {
                         k.auszahlen(r.nextInt(50));
                     }
-                    case (2): {
+                    case 2: {
                         k.ueberweisen(r.nextInt(b.getKonten().size()), r.nextInt(50));
                     }
                 }
