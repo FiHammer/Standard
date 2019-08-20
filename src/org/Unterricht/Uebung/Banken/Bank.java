@@ -7,8 +7,7 @@ public class Bank {
     private int startBetrag;
 
     public Bank() {
-        startBetrag = 0;
-        konten = new ArrayList<>();
+        this(0);
     }
     public Bank(int startBetrag) {
         this.startBetrag = startBetrag;
@@ -31,7 +30,7 @@ public class Bank {
 
     public void kontenUebersicht() {
         for (Konto k: konten) {
-            System.out.println("\n****************");
+            System.out.println("\n***********************");
             k.kontoUebersicht();
         }
     }

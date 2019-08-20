@@ -20,11 +20,7 @@ public class Konto {
     }
 
     Konto(int kontonr, String besitzer, Bank bank){
-        this.bank = bank;
-        kontonummer = kontonr;
-        this.besitzer = besitzer;
-        geldbetrag = 0;
-        kontoveraenderungen = new ArrayList<>();
+        this(kontonr, besitzer, bank, 0);
     }
 
 
