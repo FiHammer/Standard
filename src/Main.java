@@ -7,10 +7,6 @@ public class Main {
 
         new Testklasse();
 
-        Bank b = new Bank();
-        b.neuesKonto("Hello Man");
-        b.getKonto(0).kontoUebersicht();
-
 
         System.out.println("END!");
     }

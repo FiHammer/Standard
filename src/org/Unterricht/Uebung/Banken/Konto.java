@@ -23,7 +23,6 @@ public class Konto {
         this(kontonr, besitzer, bank, 0);
     }
 
-
     public void einzahlen(int betrag) {
         if (betrag < 0) return;
         new Kontoveraenderung(kontonummer, betrag, bank, true);
@@ -47,23 +46,32 @@ public class Konto {
         geldbetrag -= geld;
     }
 
-    public void kontoUebersicht() {
-        System.out.println("Konto-Nr.: \t\t\t" + kontonummer);
-        System.out.println("Kontoinhaber: \t\t" + besitzer);
-        System.out.println("Kontostand: \t\t" + geldbetrag + " Euro");
+    public String toString() {
+        String output = "";
 
-        System.out.print("Kontobewegungen:\t");
+        output += "Konto-Nr.: \t\t\t" + kontonummer + "\n";
+        output += "Kontoinhaber: \t\t" + besitzer + "\n";
+        output += "Kontostand: \t\t" + geldbetrag + " Euro" + "\n";
+        output += "Kontobewegungen:\t";
+        //output += ;
+
         if (kontoveraenderungen.size() > 0) {
             for (int index = 0; index < kontoveraenderungen.size(); index++) {
                 if (index == kontoveraenderungen.size() - 1) { // keine neue line an der letzten Bewegung
-                    System.out.println(kontoveraenderungen.get(index).getStatus(kontonummer));
+                    output += kontoveraenderungen.get(index).getStatus(kontonummer) + "\n";
                 } else {
-                    System.out.print(kontoveraenderungen.get(index).getStatus(kontonummer) + "\n\t\t\t\t\t");
+                    output += kontoveraenderungen.get(index).getStatus(kontonummer) + "\n\t\t\t\t\t";
                 }
             }
         } else {
-            System.out.println("Keine");
+            output += "Keine" + "\n";
         }
+
+        return output;
+    }
+
+    public void kontoUebersicht() {
+        System.out.println(toString());
     }
 
 }
