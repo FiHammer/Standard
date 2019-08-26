@@ -46,6 +46,16 @@ public class Bank {
         System.out.println(toString());
     }
 
+    public void einzahlen(int kontonummer, int betrag) {
+        getKonto(kontonummer).einzahlen(betrag);
+    }
+    public void auszahlen(int kontonummer, int betrag) {
+        getKonto(kontonummer).auszahlen(betrag);
+    }
+    public void ueberweisen(int startKontonummer, int zielKontonummer, int betrag) {
+        getKonto(startKontonummer).ueberweisen(zielKontonummer, betrag);}
+
+
     public String getName() {
         return name;
     }
