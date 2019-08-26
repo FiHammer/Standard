@@ -8,7 +8,7 @@ public class Testklasse {
     }
 
     public void simulieren() {
-        Bank b = new Bank(100);
+        Bank b = new Bank("name", "bic", 100);
         Random r = new Random();
 
         b.neuesKonto("Hummer Olaf");
