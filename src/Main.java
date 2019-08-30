@@ -6,8 +6,8 @@ public class Main {
 
         //new Testklasse();
         BallDemo bd = new BallDemo();
-        bd.springenInDerSchachtel(4);
-
+        bd.springenInDerSchachtel(5);
+        //bd.x();
         System.out.println("END!");
     }
 }

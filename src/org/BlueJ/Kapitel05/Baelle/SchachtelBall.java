@@ -4,23 +4,24 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class SchachtelBall{
-    private static final int gravitation = -3;  // Einfluss der Gravitation
+    private static final double gravitation = 1.0;  // Einfluss der Gravitation
 
-    private int bremsfaktor = 2;
+    private static final double reibung = 0.05;
     private Ellipse2D.Double kreis;
     private Color farbe;
     private int durchmesser;
-    private int xPosition;
-    private int yPosition;
+    private double xPosition;
+    private double yPosition;
     private final int laengeDerBox;
     private Canvas leinwand;
+    private boolean _geloescht = false;
 
 
-    private int yGeschwindigkeit = 0;
-    private int xGeschwindigkeit = 2;
+    private double yGeschwindigkeit = 10;
+    private double xGeschwindigkeit = -10;
 
     public SchachtelBall(int xPos, int yPos, int balldurchmesser, Color ballfarbe,
-                int laengeDerBox, Canvas zeichengrund)
+                int laengeDerBox, Canvas zeichengrund, int xGeschwindigkeit, int yGeschwindigkeit)
     {
         xPosition = xPos;
         yPosition = yPos;
@@ -28,6 +29,9 @@ public class SchachtelBall{
         durchmesser = balldurchmesser;
         this.laengeDerBox = laengeDerBox;
         leinwand = zeichengrund;
+
+        this.xGeschwindigkeit = xGeschwindigkeit;
+        this.yGeschwindigkeit = yGeschwindigkeit;
     }
 
 
@@ -40,14 +44,48 @@ public class SchachtelBall{
         yPosition += yGeschwindigkeit;
         xPosition += xGeschwindigkeit;
 
-        // Pr�fen, ob eine Wand getroffen wurde
-        if (yPosition + durchmesser/2 <= 50) { // boden getroffen
-            yGeschwindigkeit = -yGeschwindigkeit;
-        } else if (yPosition + durchmesser/2 >= 50+laengeDerBox) { // decke
-            yGeschwindigkeit = -yGeschwindigkeit;
+        // Prfen, ob eine Wand getroffen wurde
+        if (yPosition <= 50 && yGeschwindigkeit < 0) { // decke getroffen
+            yPosition = 50;
+            yGeschwindigkeit = -yGeschwindigkeit - reibung;
+
+            if (xGeschwindigkeit > 0) {  // richtung rechts
+                xGeschwindigkeit -= reibung;
+            } else if (xGeschwindigkeit < 0) {  // richtung links
+                xGeschwindigkeit += reibung;
+            }
+        } else if (yPosition + durchmesser >= 50+laengeDerBox && yGeschwindigkeit > 0) { // boden
+            yPosition = 50+laengeDerBox-durchmesser;
+            yGeschwindigkeit = -yGeschwindigkeit + reibung;
+
+            if (xGeschwindigkeit > 0) {  // richtung rechts
+                xGeschwindigkeit -= reibung;
+            } else if (xGeschwindigkeit < 0) {  // richtung links
+                xGeschwindigkeit += reibung;
+            }
         }
 
-        int bodenhoehe = 0; // DEBUG
+        if (xPosition <= 50 && xGeschwindigkeit < 0) { // linke wand
+            xPosition = 50;
+            xGeschwindigkeit = -xGeschwindigkeit - reibung;
+
+            if (yGeschwindigkeit > 0) {  // richtung rechts
+                yGeschwindigkeit -= reibung;
+            } else if (yGeschwindigkeit < 0) {  // richtung links
+                yGeschwindigkeit += reibung;
+            }
+        } else if (xPosition + durchmesser >= 50+laengeDerBox && xGeschwindigkeit > 0) { // rechte wand
+            xPosition = 50+laengeDerBox-durchmesser;
+            xGeschwindigkeit = -xGeschwindigkeit + reibung;
+
+            if (yGeschwindigkeit > 0) {  // richtung rechts
+                yGeschwindigkeit -= reibung;
+            } else if (yGeschwindigkeit < 0) {  // richtung links
+                yGeschwindigkeit += reibung;
+            }
+        }
+
+
 
 
         // An der neuen Position erneut zeichnen.
@@ -55,12 +93,18 @@ public class SchachtelBall{
 
     }
 
-    public boolean stopped() {return false;}
+    public boolean stopped() {
+        return xGeschwindigkeit==0 && yPosition == 50+laengeDerBox-durchmesser;
+    }
 
 
     public void zeichnen() {
         leinwand.setForegroundColor(farbe);
-        leinwand.fillCircle(xPosition, yPosition, durchmesser);
+        leinwand.fillCircle((int) xPosition, (int) yPosition, durchmesser);
     }
-    public void loeschen() {leinwand.eraseCircle(xPosition, yPosition, durchmesser);}
+    public void loeschen() {leinwand.eraseCircle((int) xPosition, (int) yPosition, durchmesser);
+        _geloescht = true;
+    }
+    public boolean geloescht() {return _geloescht;}
+
 }

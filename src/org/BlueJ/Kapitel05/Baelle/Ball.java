@@ -23,7 +23,7 @@ public class Ball
 {
     private static final int gravitation = 3;  // Einfluss der Gravitation
 
-    private int bremsfaktor = 2;  // simuliert den Luftwiderstand
+    private int bremsfaktor = 1;  // simuliert den Luftwiderstand
     private Ellipse2D.Double kreis;
     private Color farbe;
     private int durchmesser;
