@@ -12,6 +12,10 @@ public class Wordprocessor {
      * x_y => x_y
      *
      */
+    private Scanner s;
+    public Wordprocessor() {
+        s = new Scanner(System.in);
+    }
 
     public static String process(String startWord) {
         String[] parts = startWord.split(" ");
@@ -32,8 +36,7 @@ public class Wordprocessor {
         return endString;
     }
 
-    public static void simulate() {
-        Scanner s = new Scanner(System.in);
+    public void simulate() {
         String input = s.nextLine();
         //s.close();
 
