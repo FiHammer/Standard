@@ -11,6 +11,7 @@ public class SetBsp {
         // init the Set
         set_hash = new HashSet<>();
         numbersOfSomething = 0;
+        // set_hash.;
     }
 
     public void add() {
