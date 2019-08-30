@@ -4,16 +4,18 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 public class SchachtelBall{
-    private static final int gravitation = 3;  // Einfluss der Gravitation
+    private static final int gravitation = -3;  // Einfluss der Gravitation
 
-    private int bremsfaktor = 2;  // simuliert den Luftwiderstand
+    private int bremsfaktor = 2;
     private Ellipse2D.Double kreis;
     private Color farbe;
     private int durchmesser;
     private int xPosition;
     private int yPosition;
-    private final int laengeDerBox;      // y-Position des Bodens
+    private final int laengeDerBox;
     private Canvas leinwand;
+
+
     private int yGeschwindigkeit = 0;
     private int xGeschwindigkeit = 2;
 
@@ -39,17 +41,14 @@ public class SchachtelBall{
         xPosition += xGeschwindigkeit;
 
         // Pr�fen, ob eine Wand getroffen wurde
-        if (yPosition == 0 ) {}
+        if (yPosition + durchmesser/2 <= 50) { // boden getroffen
+            yGeschwindigkeit = -yGeschwindigkeit;
+        } else if (yPosition + durchmesser/2 >= 50+laengeDerBox) { // decke
+            yGeschwindigkeit = -yGeschwindigkeit;
+        }
 
         int bodenhoehe = 0; // DEBUG
 
-
-        if(yPosition >= (bodenhoehe - durchmesser) && yGeschwindigkeit > 0) {
-            yPosition = (int)(bodenhoehe - durchmesser);
-            yGeschwindigkeit = -yGeschwindigkeit + bremsfaktor;
-        } else if (true) {
-
-        }
 
         // An der neuen Position erneut zeichnen.
         zeichnen();
