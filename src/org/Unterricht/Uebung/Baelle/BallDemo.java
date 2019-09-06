@@ -1,4 +1,4 @@
-package org.BlueJ.Kapitel05.Baelle;
+package org.Unterricht.Uebung.Baelle;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
-import org.BlueJ.Kapitel05.Baelle.BallDemo;
-import org.Unterricht.Uebung.Wordprocessor.Wordprocessor;
+//import org.BlueJ.Kapitel05.Baelle.BallDemo;
+import org.Unterricht.Uebung.SamBaelle.BallDemo;
 
 public class Main {
     public static void main(String[] args) {

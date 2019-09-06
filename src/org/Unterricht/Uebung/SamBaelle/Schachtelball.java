@@ -1,7 +1,7 @@
-package org.BlueJ.Kapitel05.Baelle;
-
+package org.Unterricht.Uebung.SamBaelle;
 import java.awt.*;
-import java.awt.geom.*;
+import java.awt.geom.Ellipse2D;
+import java.util.Random;
 
 /**
  * Die Klasse Ball implementiert grafisch B�lle, die der Schwerkraft
@@ -19,39 +19,42 @@ import java.awt.geom.*;
  * @version 2008.03.30
  */
 
-public class Ball
+public class Schachtelball
 {
     private static final int gravitation = 3;  // Einfluss der Gravitation
+    private static final int bremsfaktor = 2;  // simuliert den Luftwiderstand
 
-    private int bremsfaktor = 1;  // simuliert den Luftwiderstand
     private Ellipse2D.Double kreis;
     private Color farbe;
     private int durchmesser;
     private int xPosition;
     private int yPosition;
+    private int xPosVorher;
+    private int yPosVorher;
+    private final int deckenhoehe;
     private final int bodenhoehe;      // y-Position des Bodens
-    private Canvas leinwand;
-    private int yGeschwindigkeit = 1;   // anf�ngliche Abw�rtsgeschwindigkeit
+    private final int linkeSeite;
+    private final int rechteSeite;
+    private BetterCanvas leinwand;
+    private int yGeschwindigkeit;   // anf�ngliche Abw�rtsgeschwindigkeit
+    private int xGeschwindigkeit;
 
-    /**
-     * Konstruktor f�r Exemplare von Ball
-     *
-     * @param xPos  die horizontale Koordinate des Balles
-     * @param yPos  die vertikale Koordinate des Balles
-     * @param balldurchmesser  der Durchmesser des Balles (in Bildschirmpunkten)
-     * @param ballfarbe  die Farbe des Balles
-     * @param bodenPosition  die y-Position des Bodens (wo der Ball aufspringt)
-     * @param zeichengrund die Leinwand, auf der dieser Ball gezeichnet wird
-     */
-    public Ball(int xPos, int yPos, int balldurchmesser, Color ballfarbe,
-                        int bodenPosition, Canvas zeichengrund)
+
+    public Schachtelball(int xPos, int yPos, int balldurchmesser,int deckenPosition,
+                int bodenPosition, int lSeitePosition, int rSeitePosition, BetterCanvas zeichengrund)
     {
         xPosition = xPos;
         yPosition = yPos;
-        farbe = ballfarbe;
+        Random rnd = new Random();
+        farbe = new Color(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
         durchmesser = balldurchmesser;
+        deckenhoehe = deckenPosition;
         bodenhoehe = bodenPosition;
+        linkeSeite = lSeitePosition;
+        rechteSeite = rSeitePosition;
         leinwand = zeichengrund;
+        xGeschwindigkeit = 5 - rnd.nextInt(11);
+        yGeschwindigkeit = 5 - rnd.nextInt(11);
     }
 
     /**
@@ -68,31 +71,56 @@ public class Ball
      **/
     public void loeschen()
     {
-        leinwand.eraseCircle(xPosition, yPosition, durchmesser);
+        leinwand.eraseCircle(xPosition - 1, yPosition - 1, durchmesser + 1);
     }
 
     /**
-     * Bewege diesen Ball entsprechend seiner Position und
+     * Bewege diesen Ball entsprechend seiner Position und 
      * Geschwindigkeit und zeichne ihn erneut.
      **/
     public void bewegen()
     {
         // An der aktuellen Position von der Leinwand entfernen.
-        loeschen();
+        // loeschen();
+
+        // alte Position speichern.
+        // xPosVorher = xPosition;
+        // yPosVorher = yPosition;
 
         // Neue Position berechnen.
         yGeschwindigkeit += gravitation;
         yPosition += yGeschwindigkeit;
-        xPosition +=2;
+        xPosition += xGeschwindigkeit;
+
+        //Positionen überprüfen auf Obstacles.
+
+
 
         // Pr�fen, ob der Boden erreicht ist.
         if(yPosition >= (bodenhoehe - durchmesser) && yGeschwindigkeit > 0) {
-            yPosition = (int)(bodenhoehe - durchmesser);
+            yPosition = (bodenhoehe - durchmesser);
             yGeschwindigkeit = -yGeschwindigkeit + bremsfaktor;
+        }
+        if(yPosition <= deckenhoehe) {
+            yPosition = deckenhoehe;
+            yGeschwindigkeit = -yGeschwindigkeit;
+        }
+        if(xPosition >= (rechteSeite - durchmesser)) {
+            //TODO
+            xPosition = (rechteSeite -durchmesser);
+            xGeschwindigkeit = 0 - xGeschwindigkeit;
+        }
+        if(xPosition <= linkeSeite) {
+            //TODO
+            xPosition = (linkeSeite);
+            xGeschwindigkeit = 0 - xGeschwindigkeit;
         }
 
         // An der neuen Position erneut zeichnen.
-        zeichnen();
+        // zeichnen();
+
+
+        // wenn die vorherige Position des Balls und die berechnete nächste Position
     }
 
     /**

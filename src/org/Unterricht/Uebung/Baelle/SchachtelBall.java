@@ -1,4 +1,4 @@
-package org.BlueJ.Kapitel05.Baelle;
+package org.Unterricht.Uebung.Baelle;
 
 import java.awt.*;
 
@@ -21,7 +21,7 @@ public class SchachtelBall {
     private double xGeschwindigkeit = -10;
 
     public SchachtelBall(int xPos, int yPos, int balldurchmesser, Color ballfarbe,
-                int laengeDerBox, Canvas zeichengrund, int xGeschwindigkeit, int yGeschwindigkeit)
+                         int laengeDerBox, Canvas zeichengrund, int xGeschwindigkeit, int yGeschwindigkeit)
     {
         xPosition = xPos;
         yPosition = yPos;
