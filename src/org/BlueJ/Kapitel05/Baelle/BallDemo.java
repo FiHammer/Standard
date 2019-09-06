@@ -29,10 +29,6 @@ public class BallDemo
     private Random randi;
     private static Color[] avalibleColors = new Color[]{Color.black, Color.magenta};
 
-    /**
-     * Erzeuge ein Exemplar von BallDemo.
-     * Es wird ein frischer Canvas erzeugt und sichtbar gemacht.
-     */
     public BallDemo()
     {
         baelle = new ArrayList<>();
@@ -90,7 +86,7 @@ public class BallDemo
 
         leinwand.setVisible(true);
 
-        // Den Boden zeichnen.
+        // Den Kasten zeichnen.
         leinwand.drawLine(50, 50, laengeDerBox+50, 50); // boden
         leinwand.drawLine(50, laengeDerBox+50, laengeDerBox+50, laengeDerBox+50); // decke
         leinwand.drawLine(50, 50, 50, laengeDerBox+50); // linke Wand
@@ -105,17 +101,38 @@ public class BallDemo
         // Die B�lle springen lassen.
         while (running) {
             leinwand.wait(50);           // kurze Pause
-            System.out.println("Bewegung");
+
+            int gestoppteBaelle = 0;
+            for (SchachtelBall b: schachtelBalls) {
+                if (b.getStop()) {
+                    gestoppteBaelle++;
+                    continue;
+                }
+                if (b.stopped()) {
+                    //System.out.println("A ball stopped");
+                    gestoppteBaelle++;}
+            }
+
+            if (gestoppteBaelle == schachtelBalls.size()) {
+                System.out.println("Main End");
+                running=false;
+                break;
+            }
+
+
+            // movement
+
+            for (SchachtelBall b: schachtelBalls) {
+                b.loeschen();
+            }
+
             for (SchachtelBall b: schachtelBalls) {
                 b.bewegen();
             }
-            int gestoppteBaelle = 0;
+
             for (SchachtelBall b: schachtelBalls) {
-                if (b.stopped()) {
-                    System.out.println("losch");
-                    gestoppteBaelle++;}
+                b.zeichnen();
             }
-            if (gestoppteBaelle == schachtelBalls.size()) {running=false;}
         }
 
     }
