@@ -46,7 +46,8 @@ public class Schachtelball
         xPosition = xPos;
         yPosition = yPos;
         Random rnd = new Random();
-        farbe = new Color(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
+        farbe = new Color(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255), 255);
+        //farbe = new Color(0, 0, 0, 255);
         durchmesser = balldurchmesser;
         deckenhoehe = deckenPosition;
         bodenhoehe = bodenPosition;
@@ -71,7 +72,7 @@ public class Schachtelball
      **/
     public void loeschen()
     {
-        leinwand.eraseCircle(xPosition - 1, yPosition - 1, durchmesser + 1);
+        leinwand.eraseCircle(xPosition, yPosition, durchmesser);
     }
 
     /**
