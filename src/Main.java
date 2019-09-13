@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         //new Testklasse();
         BallDemo bd = new BallDemo();
-        bd.springenInDerSchachtel(1);
+        bd.springenInDerSchachtel(20);
         //bd.x();
         System.out.println("END!");
     }

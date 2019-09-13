@@ -24,7 +24,10 @@ public class SchachtelBall {
     // use for realistic y/x-movement
     private double startXSpeed=0;
     private double startYSpeed=0;
-    private int timeSpend=0;
+    private int timeSpendX=0;
+    private int timeSpendY=0;
+    private double frictionX=0;
+    private double frictionY=0;
 
     public SchachtelBall(int xPos, int yPos, int balldurchmesser, Color ballfarbe,
                          int lengthOfBox, Canvas zeichengrund, int xSpeed, int ySpeed)
@@ -37,7 +40,10 @@ public class SchachtelBall {
         leinwand = zeichengrund;
 
         this.xSpeed = xSpeed;
+        startXSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        startYSpeed = ySpeed;
+
         stop = false;
 
         System.out.println("Generated a ball with \n" +
@@ -48,18 +54,24 @@ public class SchachtelBall {
 
     public void bewegen() {
         if (stop) return;
-        /*// Neue Position berechnen.
-        if (Math.abs(ySpeed) > gravitation/100) { // gravity will only be apllied, if the the speed is under the gravityFac to prevent making the ball faster
+        // Neue Position berechnen.
+
+        if (Math.round(yPosition) == 50 + lengthOfBox - diameter && (Math.round(ySpeed) == 0)) {
+            ySpeed = 0;
+        } else if (Math.round(yPosition) + diameter/4 < 50 + lengthOfBox - diameter) { // not on(/near) ground
             ySpeed += gravitation; // really bad operation to use gravity
+        } else {
+            ySpeed += gravitation/4;
         }
         yPosition += ySpeed;
-        xPosition += xSpeed;*/
+        xPosition += xSpeed;
+        /*
+        timeSpendX++;
+        timeSpendY++;
 
-        timeSpend++;
-
-        yPosition = -0.5*gravitation*Math.pow(timeSpend, 2) + startYSpeed*timeSpend;
-        xPosition = startXSpeed*timeSpend;
-
+        yPosition = -0.5*gravitation*Math.pow(timeSpendY, 2) + startYSpeed*timeSpendY - frictionY + lengthOfBox;
+        xPosition = startXSpeed*timeSpendX - frictionX + lengthOfBox;
+        */
 
 
 
@@ -76,6 +88,7 @@ public class SchachtelBall {
                 }
             }
 
+
             if (ySpeed < 0) { // speed must be negative
                 // bounce of wall
                 // frictionYSpeed is now negative
@@ -88,6 +101,9 @@ public class SchachtelBall {
 
             } else {throw new UnknownError();} // WTF could this be?
 
+            timeSpendY = 0;
+            frictionY = 0; // reseted, included in the new ySpeed
+            startYSpeed = ySpeed;
 
             // friction for the x Speed
             if (xSpeed < 0) {  // negativ xSpeed => left movement
@@ -97,6 +113,7 @@ public class SchachtelBall {
                                     "\n\t\t\tNew Speed: " + (xSpeed + frictionXSpeed) );
 
                 xSpeed += frictionXSpeed;
+                frictionX += frictionXSpeed;
             } else if (0 < xSpeed) {  // positive xSpeed => right movement
                 double frictionXSpeed = -xSpeed * frictionFactor;
 
@@ -105,8 +122,8 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (xSpeed + frictionXSpeed) );
 
                 xSpeed += frictionXSpeed;
+                frictionX += frictionXSpeed;
             } else {System.out.println("\tNo Friction for xSpeed");}
-
 
             /*
             if (ySpeed != 0) {
@@ -140,6 +157,9 @@ public class SchachtelBall {
 
             } else {throw new UnknownError();}
 
+            timeSpendY = 0;
+            frictionY = 0; // reseted, included in the new ySpeed
+            startYSpeed = ySpeed;
 
             // friction for the x Speed
             if (xSpeed < 0) {  // negativ xSpeed => left movement
@@ -149,6 +169,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (xSpeed + frictionXSpeed) );
 
                 xSpeed += frictionXSpeed;
+                frictionX += frictionXSpeed;
             } else if (0 < xSpeed) {  // positive xSpeed => right movement
                 double frictionXSpeed = -xSpeed * frictionFactor;
 
@@ -157,6 +178,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (xSpeed + frictionXSpeed) );
 
                 xSpeed += frictionXSpeed;
+                frictionX += frictionXSpeed;
             } else {System.out.println("\tNo Friction for xSpeed");}
 
 
@@ -191,6 +213,11 @@ public class SchachtelBall {
 
             } else {throw new UnknownError();}
 
+            timeSpendX = 0;
+            frictionX = 0; // reseted, included in the new xSpeed
+            startXSpeed = xSpeed;
+
+
             if (ySpeed < 0) {  // negativ ySpeed => up movement
                 double frictionYSpeed = -ySpeed * frictionFactor; // positive friction
                 System.out.println("\tFriction for ySpeed (up): \n\t\t\tFriction: " + frictionYSpeed +
@@ -198,6 +225,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (ySpeed + frictionYSpeed) );
 
                 ySpeed += frictionYSpeed;
+                frictionY += frictionYSpeed;
             } else if (0 < ySpeed) {  // positive ySpeed => down movement
                 double frictionYSpeed = -ySpeed * frictionFactor;
 
@@ -206,6 +234,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (ySpeed + frictionYSpeed) );
 
                 ySpeed += frictionYSpeed;
+                frictionY += frictionYSpeed;
             } else {System.out.println("\tNo Friction for ySpeed");}
 
             /*if (xSpeed != 0) {
@@ -228,6 +257,11 @@ public class SchachtelBall {
                 }
             }
 
+            timeSpendX = 0;
+            frictionX = 0; // reseted, included in the new xSpeed
+            startXSpeed = xSpeed;
+
+
             if (0 < xSpeed) { // xspeed is positive (movement to right)
                 double frictionXSpeed = xSpeed * frictionFactor;
                 System.out.println("Invert xSpeed (bounce right wall): \n\t\t\tFriction: " + frictionXSpeed + "\n\t\t\tOld Speed: " + xSpeed
@@ -244,6 +278,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (ySpeed + frictionYSpeed) );
 
                 ySpeed += frictionYSpeed;
+                frictionY += frictionYSpeed;
             } else if (0 < ySpeed) {  // positive ySpeed => down movement
                 double frictionYSpeed = -ySpeed * frictionFactor;
 
@@ -252,6 +287,7 @@ public class SchachtelBall {
                         "\n\t\t\tNew Speed: " + (ySpeed + frictionYSpeed) );
 
                 ySpeed += frictionYSpeed;
+                frictionY += frictionYSpeed;
             } else {System.out.println("\tNo Friction for ySpeed");}
 
             /*if (xSpeed != 0) {
@@ -271,7 +307,7 @@ public class SchachtelBall {
     }
 
     public boolean stopped() {
-        if ((0 == Math.round(xSpeed) && Math.round(ySpeed) == 0) && yPosition == 50+ lengthOfBox - diameter) {
+        if ((0 == Math.round(xSpeed) && (-1 <= Math.round(ySpeed) && Math.round(ySpeed) <= 1)) && Math.round(yPosition) == 50+ lengthOfBox - diameter) {
             stop = true;
             System.out.println("STOPPPP");
         }
