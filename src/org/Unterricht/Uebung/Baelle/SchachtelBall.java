@@ -6,7 +6,8 @@ public class SchachtelBall {
     private static final double gravitation = 1.0;  // Einfluss der Gravitation
 
     private static final double reibung = 0.05;
-    private static final double reibungInPercent = 95;
+    private static final double reibungInPercent = 5;
+    private static final double reibFak = 0.05;
     private Color farbe;
     private int durchmesser;
     private double xPosition;
@@ -53,6 +54,7 @@ public class SchachtelBall {
         double oldXP = xPosition;
         double oldYS = yGeschwindigkeit;
         double oldXS = xGeschwindigkeit;
+        System.out.println("Anfang: " + yGeschwindigkeit);
 
 
         // Prfen, ob eine Wand getroffen wurde, sollte ersetzt werden durch eine schleife
@@ -67,15 +69,12 @@ public class SchachtelBall {
                 }
             }
 
-            if (yGeschwindigkeit != 0) { // yGesch vorher pos, nacher neg
-                yGeschwindigkeit = -yGeschwindigkeit + (yGeschwindigkeit/reibungInPercent); // geschwindigkeit wird negativ und veringert
+            if (yGeschwindigkeit != 0) {
+                // vorher muss die geschwindigkeit negativ sein
+                //                 positive yGesch (teste abs)- Reibung (yGesch * reibFaktor)
+                yGeschwindigkeit = Math.abs(yGeschwindigkeit) - (Math.abs(yGeschwindigkeit) * reibFak);
             }
 
-            if (xGeschwindigkeit > 0) {  // richtung rechts; xGesch vorher pos, nacher neg
-                xGeschwindigkeit += (xGeschwindigkeit/reibungInPercent);
-            } else if (xGeschwindigkeit < 0) {  // richtung links
-                xGeschwindigkeit += (xGeschwindigkeit/reibungInPercent); // operation kann - bleiben, da die Rechnung dann negativ ist => aufheben
-            }
 
             System.out.println("Decke getroffen:\txGesch: " + (oldXS - xGeschwindigkeit) + "\n\t\t\t\t\t" +
                                                 " yGesch: " + (oldYS - yGeschwindigkeit) + "\n\t\t\t\t\t" +
@@ -91,16 +90,13 @@ public class SchachtelBall {
                     yPosition = laengeDerBox + 50 - (yPosition + durchmesser - (laengeDerBox + 50)) - durchmesser;
                 }
             }
-
-            if (yGeschwindigkeit != 0) { // yGesch vorher neg, nacher pos
-                yGeschwindigkeit = Math.abs(yGeschwindigkeit) - Math.abs(yGeschwindigkeit/reibungInPercent);
+            if (yGeschwindigkeit != 0) {
+                // vorher muss die geschwindigkeit postiv sein
+                //                neg( positive yGesch (teste abs)  - Reibung (yGesch * reibFaktor)
+                System.out.println("Reibung " + yGeschwindigkeit + " " + Math.abs(yGeschwindigkeit)*reibFak);
+                yGeschwindigkeit = -(Math.abs(yGeschwindigkeit) - (Math.abs(yGeschwindigkeit) * reibFak));
             }
 
-            if (xGeschwindigkeit > 0 && xGeschwindigkeit != 0) {  // richtung rechts
-                xGeschwindigkeit += (xGeschwindigkeit/reibungInPercent);
-            } else if (xGeschwindigkeit < 0 && xGeschwindigkeit != 0) {  // richtung links
-                xGeschwindigkeit += (xGeschwindigkeit/reibungInPercent);
-            }
             System.out.println("Boden getroffen:\t xGesch: " + (oldXS - xGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " yGesch: " + (oldYS - yGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " xPos: " + (oldXP - xPosition) + "\n\t\t\t\t\t" +
@@ -119,14 +115,12 @@ public class SchachtelBall {
             }
 
             if (xGeschwindigkeit != 0) {
-                xGeschwindigkeit = -xGeschwindigkeit + (xGeschwindigkeit/reibungInPercent);
+                // vorher muss die geschwindigkeit neg sein
+                //                pos( positive yGesch (teste abs)  - Reibung (yGesch * reibFaktor)
+                xGeschwindigkeit = (Math.abs(xGeschwindigkeit) - (Math.abs(xGeschwindigkeit) * reibFak));
             }
 
-            if (yGeschwindigkeit > 0 && yGeschwindigkeit != 0) {  // richtung rechts
-                yGeschwindigkeit += (yGeschwindigkeit/reibungInPercent);
-            } else if (yGeschwindigkeit < 0 && yGeschwindigkeit != 0) {  // richtung links
-                yGeschwindigkeit += (yGeschwindigkeit/reibungInPercent);
-            }
+
             System.out.println("Linke Wand getroffen:\txGesch: " + (oldXS - xGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " yGesch: " + (oldYS - yGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " xPos: " + (oldXP - xPosition) + "\n\t\t\t\t\t" +
@@ -141,16 +135,12 @@ public class SchachtelBall {
                     xPosition = laengeDerBox + 50 - (xPosition + durchmesser - (laengeDerBox + 50)) - durchmesser;
                 }
             }
-
             if (xGeschwindigkeit != 0) {
-                xGeschwindigkeit = -xGeschwindigkeit + (xGeschwindigkeit/reibungInPercent);
+                // vorher muss die geschwindigkeit pos sein
+                //                neg( positive yGesch (teste abs)  - Reibung (yGesch * reibFaktor)
+                xGeschwindigkeit = -(Math.abs(xGeschwindigkeit) - (Math.abs(xGeschwindigkeit) * reibFak));
             }
 
-            if (yGeschwindigkeit > 0 && yGeschwindigkeit != 0) {  // richtung rechts
-                yGeschwindigkeit += (yGeschwindigkeit/reibungInPercent);
-            } else if (yGeschwindigkeit < 0 && yGeschwindigkeit != 0) {  // richtung links
-                yGeschwindigkeit += (yGeschwindigkeit/reibungInPercent);
-            }
             System.out.println("Rechte Wand getroffen:\txGesch: " + (oldXS - xGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " yGesch: " + (oldYS - yGeschwindigkeit) + "\n\t\t\t\t\t" +
                     " xPos: " + (oldXP - xPosition) + "\n\t\t\t\t\t" +
@@ -169,6 +159,7 @@ public class SchachtelBall {
         }
         //System.out.println(xGeschwindigkeit + " " + yGeschwindigkeit);
 
+        System.out.println("Ende: " + yGeschwindigkeit);
         stopped();
     }
 
