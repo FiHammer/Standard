@@ -1,5 +1,4 @@
 package org.Unterricht.Uebung.SamBaelle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -43,7 +42,13 @@ public class BetterCanvas
         this(title, width, height, Color.white);
     }
 
-
+    /**
+     * Create a Canvas.
+     * @param title  title to appear in Canvas Frame
+     * @param width  the desired width for the canvas
+     * @param height  the desired height for the canvas
+     * @param bgColor  the desired background color of the canvas
+     */
     public BetterCanvas(String title, int width, int height, Color bgColor)
     {
         frame = new JFrame();
@@ -184,7 +189,7 @@ public class BetterCanvas
         graphic.setColor(backgroundColor);
         graphic.draw(shape);  // erase by drawing background color
         graphic.setColor(original);
-        canvas.repaint();
+        //REPAINT canvas.repaint();
     }
 
     /**
@@ -198,7 +203,7 @@ public class BetterCanvas
     public boolean drawImage(Image image, int x, int y)
     {
         boolean result = graphic.drawImage(image, x, y, null);
-        canvas.repaint();
+        //REPAINT canvas.repaint();
         return result;
     }
 
@@ -211,7 +216,7 @@ public class BetterCanvas
     public void drawString(String text, int x, int y)
     {
         graphic.drawString(text, x, y);
-        canvas.repaint();
+        //REPAINT canvas.repaint();
     }
 
     /**
@@ -226,7 +231,7 @@ public class BetterCanvas
         graphic.setColor(backgroundColor);
         graphic.drawString(text, x, y);
         graphic.setColor(original);
-        canvas.repaint();
+        //REPAINT canvas.repaint();
     }
 
     /**
@@ -239,7 +244,7 @@ public class BetterCanvas
     public void drawLine(int x1, int y1, int x2, int y2)
     {
         graphic.drawLine(x1, y1, x2, y2);
-        canvas.repaint();
+        //REPAINT canvas.repaint();
     }
 
     /**
@@ -337,6 +342,9 @@ public class BetterCanvas
         {
             // ignoring exception at the moment
         }
+    }
+    public void repaint() {
+        canvas.repaint();
     }
 
     /************************************************************************

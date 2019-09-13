@@ -47,7 +47,6 @@ public class BallDemo
         int boden = (int) leinwand.getSize().getHeight()-decke; // Position der Bodenlinie
         int lWand= 20;
         int rWand= (int) leinwand.getSize().getWidth()-lWand;
-        int[] rechteEckeUnten = {(int)leinwand.getSize().getWidth(), (int)leinwand.getSize().getHeight()};
         Random rnd = new Random();
 
         leinwand.setVisible(true);
@@ -65,7 +64,7 @@ public class BallDemo
 
         Schachtelball[] baelle = new Schachtelball[anzahl];
         for(int n=0; n<anzahl; n++) {
-            baelle[n] = new Schachtelball(rnd.nextInt(500)+lWand, 50, 20,decke, boden, lWand, rWand, leinwand);
+            baelle[n] = new Schachtelball(rnd.nextInt(500)+lWand, 50, 20, decke, boden, lWand, rWand, leinwand);
         }
 
         while(true) {

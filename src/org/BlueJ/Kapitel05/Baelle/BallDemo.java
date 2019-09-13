@@ -13,7 +13,7 @@ public class BallDemo
     private ArrayList<Ball> baelle;
     private ArrayList<SchachtelBall> schachtelBalls;
     private Random randi;
-    private static Color[] avalibleColors = new Color[]{Color.black, Color.magenta};
+    private static Color[] avalibleColors = new Color[]{Color.black, Color.magenta, Color.green};
 
     public BallDemo()
     {
@@ -85,7 +85,7 @@ public class BallDemo
 
         // Die B�lle springen lassen.
         while (true) {
-            leinwand.wait(50);           // kurze Pause
+            leinwand.wait(20);           // kurze Pause
 
             int gestoppteBaelle = 0;
             for (SchachtelBall b: schachtelBalls) {

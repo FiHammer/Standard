@@ -85,7 +85,7 @@ public class BallDemo
 
         // Die B�lle springen lassen.
         while (true) {
-            leinwand.wait(50);           // kurze Pause
+            leinwand.wait(20);           // kurze Pause
 
             int gestoppteBaelle = 0;
             for (SchachtelBall b: schachtelBalls) {
